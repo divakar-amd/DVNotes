@@ -29,5 +29,5 @@
         ]
     } 
     ```
-3. asdf 
+3. Use `reset` command if terminal shows weird characters on mouse clicks. They results from mouse tracking left on & session disconnects 
 4. asdf as
