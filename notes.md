@@ -30,4 +30,4 @@
     } 
     ```
 3. Use `reset` command if terminal shows weird characters on mouse clicks. They results from mouse tracking left on & session disconnects 
-4. asdf as
+4. `"debug.inlineValues": "on"` in the settings.json. To show inline values of variables next to it while debugging.
