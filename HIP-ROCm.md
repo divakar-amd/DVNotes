@@ -22,10 +22,12 @@
 - Error handling
 	- HIP APIs return hipError_t
  	- cont char* hipGetErrorString(hipError_t hipError)
-    	- hipError_t hipGetLastError(void)
+    	- hipError_t hipGetLastError(void) : this resets the error status for the next call.
+        - hipError_t hipPeekAtLastError(void) : this does _Not_ reset the error status
  
 ### Simple kernel
 - __ global __ functions have to return `void`
   	-  __ global __ void simplekernel(float *a){ ... }
 -  However, device functions can return other stuff:
   	- __ device __ float otherKernel(float *a){ ... }
+- blockDim.x <= 1024
