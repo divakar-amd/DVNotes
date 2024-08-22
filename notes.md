@@ -30,4 +30,5 @@
     } 
     ```
 3. Use `reset` command if terminal shows weird characters on mouse clicks. They results from mouse tracking left on & session disconnects 
+    3.1 Press `Enter`, `~`, `.` one after the other to disconnect from a frozen session.
 4. `"debug.inlineValues": "on"` in the settings.json. To show inline values of variables next to it while debugging.
