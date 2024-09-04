@@ -32,6 +32,7 @@
   	- __ device __ float otherKernel(float *a){ ... }
 - blockDim.x <= 1024
 
+
 ### Thread organization
 - GPUs --> Many CUs
 - Each CU:
@@ -63,8 +64,9 @@
 
 
 
+=======
 
-
-
-
-
+### Asynchronous Operations
+- First hipLaunchKernel takes a long time: Some potential reasons is loading the library for the first time (could be some MBs of size) + stream creation after the loading.
+  - This could be handled by launching a dummy kernel first.
+- hipMemcpy is blocking/sync (i.e. CPU will wait before moving to the next task). You can use hipMemcpyAsync for non-blocking/async call (i.e. CPU will move to execute the next task).
