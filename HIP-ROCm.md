@@ -33,6 +33,39 @@
 - blockDim.x <= 1024
 
 
+### Thread organization
+- GPUs --> Many CUs
+- Each CU:
+	- 4 Vector ALUs (each having 64 lanes i.e. 64 threads). 1 wavefront matches to 1 VALU
+   	- 1 Scalar ALU
+   	- LDS (local data share): a bank of shared memory 64k, 160k
+   	- Threads within CU can use LDS
+ 
+- Each Thread Block will run on 1 CU
+- LDS can only be accessed by threads in that particular CU
+- Global Memory
+- 	- hipMalloc & hipFree goes here
+   - accesable by all threads
+
+- Shared Memory (LDS)
+  	- 2 types: Static && Dynamic
+  	- Static:
+  	  	- `__shared__ float sharedBuff[SIZE]`
+	- Dynamic 
+
+- Local (private) memory
+
+##### Barriers and Atomics
+- `__syncthreads()`
+- `__threadfence()`
+- `__threadfence_block()`
+- Atomics:
+  	- Many threads writing to same place
+
+
+
+=======
+
 ### Asynchronous Operations
 - First hipLaunchKernel takes a long time: Some potential reasons is loading the library for the first time (could be some MBs of size) + stream creation after the loading.
   - This could be handled by launching a dummy kernel first.
