@@ -14,7 +14,7 @@
         "version": "0.2.0",
         "configurations": [
             {
-                "name": "Python Debugger: Current File with Arguments",
+                "name": "PyDebug: file with args",
                 "type": "debugpy",
                 "request": "launch",
                 "python": "/opt/conda/envs/py_3.9/bin/python",
@@ -28,6 +28,28 @@
             }
         ]
     } 
+    ```
+
+    ```
+    {
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "PyDebug: torchrun",
+            "type": "debugpy",
+            "request": "launch",
+            "python": "/opt/conda/envs/py_3.9/bin/python",
+            "program": "/opt/conda/envs/py_3.9/bin/torchrun",
+            "console": "integratedTerminal",
+            "env": {"AWESOME_ENV":"0"},
+            "justMyCode": false,
+            "args": [
+                "/path/to/my_script.py",
+                "--arg1", "val1"
+            ]
+        }
+    ]
+} 
     ```
 3. Use `reset` command if terminal shows weird characters on mouse clicks. They results from mouse tracking left on & session disconnects 
     3.1 Press `Enter`, `~`, `.` one after the other to disconnect from a frozen session.
