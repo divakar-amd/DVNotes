@@ -10,6 +10,7 @@
            ```python
            self.max_seq_len_to_capture = min(self.max_seq_len_to_capture, self.max_model_len)
            ```
+    3. [_get_graph_batch_size](https://github.com/vllm-project/vllm/blob/83caf35e082b2657dce5f71ff965a13653a763b0/vllm/worker/model_runner.py#L1876) : Returns the padded batch size given actual batch size. Batch sizes are 1, 2, 4, _BATCH_SIZE_ALIGNMENT, 2*_BATCH_SIZE_ALIGNMENT, 3*_BATCH_SIZE_ALIGNMENT...
 4. ### Graph usage condition
     1. `_use_captured_graph` : [link](https://github.com/vllm-project/vllm/blob/83caf35e082b2657dce5f71ff965a13653a763b0/vllm/worker/model_runner.py#L713-L722)
     2. <details>
