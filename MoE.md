@@ -56,3 +56,5 @@
                    --> result (_use_captured_graph) = True
             </pre>
         </details>
+
+5. Chunked prefill gets enabled automatically for model_len > 32k: [link](https://github.com/vllm-project/vllm/blob/83caf35e082b2657dce5f71ff965a13653a763b0/vllm/engine/arg_utils.py#L929-L931)
