@@ -58,3 +58,17 @@
         </details>
 
 5. Chunked prefill gets enabled automatically for model_len > 32k: [link](https://github.com/vllm-project/vllm/blob/83caf35e082b2657dce5f71ff965a13653a763b0/vllm/engine/arg_utils.py#L929-L931)
+6. Decode latency IS affected by prefill length.
+   - BS=240, output=200
+   
+    | Input-len | Decode latency |
+    |-----------|----------------|
+    | 512       | 63ms           |
+    | 1024      | 66ms           |
+    | 2048      | 69ms           |
+   <details>
+            <summary>Reason </summary>
+            <br>
+            <pre> kv cache size is bigger for larger context length. Hence, paged_attn kernel takes more time!  </pre>
+            </pre>
+        </details>
