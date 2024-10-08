@@ -69,6 +69,8 @@
    <details>
             <summary>Reason </summary>
             <br>
-            <pre> kv cache size is bigger for larger context length. Hence, paged_attn kernel takes more time!  </pre>
+            <pre> kv cache size is bigger for larger context length. Hence, paged_attn kernel takes more time! 
+                BS=240 | _paged_attn kernel time: In512 : 41us  --vs-- In2048 : 121us
+            </pre>
             </pre>
         </details>
