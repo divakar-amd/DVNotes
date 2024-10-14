@@ -59,3 +59,4 @@
         docker cp <source_path> <container_id>:<destination_path>
         docker cp container_id:/path/in/container /path/on/host
    2. asdf
+6. Kill all bg processes by using '%': `kill -9 %`
