@@ -74,3 +74,12 @@
             </pre>
             </pre>
         </details>
+7. Config file names to avoid confusion:
+   ```
+       Mi300 file names:  
+            AMD_Instinct_MI300X.json
+       Mi308 file names:
+            AMD_Instinct_MI300X_OAM.json
+            AMD_Instinct_MI308X_OAM.json
+            AMD_Radeon_Graphics.json
+   ```
