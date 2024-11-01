@@ -45,11 +45,11 @@
             "justMyCode": false,
             "args": [
                 "/path/to/my_script.py",
-                "--arg1", "val1"
+                        "--arg1", "val1"
+                    ]
+                }
             ]
-        }
-    ]
-} 
+        } 
     ```
 3. Use `reset` command if terminal shows weird characters on mouse clicks. They results from mouse tracking left on & session disconnects 
     3.1 Press `Enter`, `~`, `.` one after the other to disconnect from a frozen session.
@@ -60,3 +60,11 @@
         docker cp container_id:/path/in/container /path/on/host
    2. asdf
 6. Kill all bg processes by using '%': `kill -9 %`
+7. Dump ir
+   ```
+    export MLIR_ENABLE_DUMP=1
+    export AMDGCN_ENABLE_DUMP=1
+    Always clear the Triton cache before each run by rm -rf /root/.triton/cache
+    Remember to pipe the output to a file
+    <cmd> > ir.txt 2>&1
+    ```
