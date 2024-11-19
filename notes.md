@@ -68,3 +68,4 @@
     Remember to pipe the output to a file
     <cmd> > ir.txt 2>&1
     ```
+8. To prevent GPU cores from creating, run your dockers with `--ulimit core=0:0`
