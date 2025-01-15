@@ -69,3 +69,9 @@
     <cmd> > ir.txt 2>&1
     ```
 8. To prevent GPU cores from creating, run your dockers with `--ulimit core=0:0`
+9. To avoid wide docker ps output:
+   ```
+   docker ps --format="table {{.ID}}\t{{.Image}}\t{{.RunningFor}}\t{{.Status}}\t{{.Names}}"
+
+   {{.Ports}} -> if you want it
+   ```
