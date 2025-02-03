@@ -75,3 +75,9 @@
 
    {{.Ports}} -> if you want it
    ```
+10. Nsight System profiling <br>
+    [Reference Link](https://dev-discuss.pytorch.org/t/using-nsight-systems-to-profile-gpu-workload/59)
+    ```
+    nsys profile -w true -t cuda,nvtx,osrt,cudnn,cublas -s cpu  --capture-range=cudaProfilerApi --stop-on-range-end=true --cudabacktrace=true -x true -o my_profile python main.py
+    ```
+
