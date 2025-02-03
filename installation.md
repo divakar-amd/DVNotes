@@ -16,7 +16,7 @@ make -C docker build CUDA_ARCHS="90-real"
 docker run --name dv_trt_src --gpus all -i -d --ipc=host --entrypoint /bin/bash  -v /data/:/data -v /home/divverma/Projects/:/Projects --volume /home/divverma/Projects/TRT_LLM_2/TensorRT-LLM:/code/tensorrt_llm  --env "CCACHE_DIR=/code/tensorrt_llm/cpp/.ccache" --env "CCACHE_BASEDIR=/code/tensorrt_llm"   --workdir /code/tensorrt_llm  --tmpfs /tmp:exec  tensorrt_llm/devel:latest
 
 # build the trtllm wheel inside the docker
-python3 ./scripts/build_wheel.py --cuda_architectures "90-real" --trt_root /usr/local/tensorrt
+python3 ./scripts/build_wheel.py --cuda_architectures "90-real" --trt_root /usr/local/tensorrt --benchmarks --clean
 
 # Deploy TensorRT-LLM in your environment.
 pip install ./build/tensorrt_llm*.whl
