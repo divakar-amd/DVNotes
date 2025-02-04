@@ -84,6 +84,9 @@
     python3 run.py --engine_dir /Projects/trt_engines/mixtral22B/tp4/ --tokenizer_dir /data/Mixtral-8x22B-Instruct-v0.1/ --max_output_len 8 --input_text "what's the capital of france?"
 
     python benchmark.py -m dec --engine_dir /Projects/trt_engines/trtengine_llama2_7b/ --batch_size 32 --input_output_len "32, 5"
+    # mixtral tp4
+    mpirun -n 4 python benchmark.py -m dec --engine_dir /Projects/trt_engines/mixtral22B/tp4/ --batch_size 1 --input_output_len "512,8"
+
 
     ```
 11. Python tricks
