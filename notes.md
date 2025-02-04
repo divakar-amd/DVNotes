@@ -86,5 +86,11 @@
     python benchmark.py -m dec --engine_dir /Projects/trt_engines/trtengine_llama2_7b/ --batch_size 32 --input_output_len "32, 5"
 
     ```
-
+11. Python tricks
+    ```python
+    print("hello" "world")  # helloworld
+    print("hello", "world") # hello world
+    print("hello"
+          "world")          # helloworld
+    ```
 
