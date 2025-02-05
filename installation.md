@@ -3,7 +3,7 @@
 
 # Contents
  - [TensorRT-LLM](#TensorRT-LLM) 
- - [Nsight systems](#Nsight%20systems) 
+ - [Nsight systems](#Nsight%20systems%20(nsys)) 
 
 
 ## TensorRT-LLM
