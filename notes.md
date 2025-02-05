@@ -86,6 +86,10 @@
     python benchmark.py -m dec --engine_dir /Projects/trt_engines/trtengine_llama2_7b/ --batch_size 32 --input_output_len "32, 5" --csv
     # mixtral tp4
     mpirun -n 4 python benchmark.py -m dec --engine_dir /Projects/trt_engines/mixtral22B/tp4/ --batch_size 1 --input_output_len "512,8" --csv
+    --duration -1
+    --warmup 1
+    --num_runs 1
+    
     ```
     A better way is to use cpp benchmarking instead of python [(link)](https://github.com/NVIDIA/TensorRT-LLM/blob/main/benchmarks/cpp/README.md)
 11. Python tricks
