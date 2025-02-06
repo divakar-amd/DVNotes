@@ -99,9 +99,6 @@
     print("hello"
           "world")          # helloworld
     ```
-12. vLLM pre-commit formatting
-    ```
-    pip install -r requirements-lint.txt && pre-commit install
-    ```
+
 
 
