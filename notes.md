@@ -87,7 +87,7 @@
     # mixtral tp4
     mpirun -n 4 python benchmark.py -m dec --engine_dir /Projects/trt_engines/mixtral22B/tp4/ --batch_size 1 --input_output_len "512,8" --csv
     --duration -1
-    --warmup 1
+    --warm_up 1
     --num_runs 1
     
     ```
