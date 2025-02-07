@@ -92,7 +92,22 @@
     
     ```
     A better way is to use cpp benchmarking instead of python [(link)](https://github.com/NVIDIA/TensorRT-LLM/blob/main/benchmarks/cpp/README.md)
-11. Python tricks
+11. TRT-LLM
+    - Convert mixtral's checkpoint (from examples/mixtral)
+    ```
+    TP=8
+    python ../llama/convert_checkpoint.py --model_dir /data/Mixtral-8x22B-Instruct-v0.1/ \
+            --output_dir /data/tllm_ckpt_mixtral8x22b_tp8 --dtype float16 \
+            --tp_size 8 --moe_tp_size 8
+
+    trtllm-build --checkpoint_dir /data/tllm_ckpt_mixtral8x22b_tp8 \
+                 --output_dir /data/trt_engine_mixtral8x22b_tp8 \
+                 --gemm_plugin float16
+    
+    ```
+    - 
+
+13. Python tricks
     ```python
     print("hello" "world")  # helloworld
     print("hello", "world") # hello world
