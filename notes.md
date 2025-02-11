@@ -81,6 +81,11 @@
     nsys profile --stats=true -w true -t cuda,nvtx,osrt,cudnn,cublas -s cpu  --capture-range=cudaProfilerApi --stop-on-range-end=true --cudabacktrace=true -x true -o my_profile python main.py
     ```
     ```
+    # To use mpi
+    export OMPI_ALLOW_RUN_AS_ROOT=1
+    export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+    ```
+    ```
     python3 run.py --engine_dir /Projects/trt_engines/mixtral22B/tp4/ --tokenizer_dir /data/Mixtral-8x22B-Instruct-v0.1/ --max_output_len 8 --input_text "what's the capital of france?"
 
     python benchmark.py -m dec --engine_dir /Projects/trt_engines/trtengine_llama2_7b/ --batch_size 32 --input_output_len "32, 5" --csv
