@@ -46,3 +46,7 @@ nsys profile --stats=true -w true -t cuda,nvtx,osrt,cudnn,cublas -s cpu  --captu
  python3 benchmark_latency_nsys.py --model /data/llama-2-7b-chat-hf/ --load-format dummy --dtype float16 --input-len 128 --output-len 1 --batch-size 64 \
  --num-iters 1 --num-iters-warmup 10 --disable-async-output-proc --enforce-eager --profile
 ```
+```
+# generate csv stats table for the gpu kernels
+nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output out.csv
+```
