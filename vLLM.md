@@ -5,6 +5,7 @@
  - [Entrypoint](#Entrypoint) 
  - [Formatting](#Formatting)
  - [Extra-Decode](#Extra-Decode)
+ - [Profile-using-nsys](#Profile-using-nsys)
 
 
 ### Entrypoint
@@ -29,4 +30,19 @@ python3 benchmark_latency.py --model /data/llama-2-7b-chat-hf/ -tp 1 --dtype flo
 --input_len 2049 --output_len 1 --batch_size 2 --num-iters 1 --num-iters-warmup 0 \
 --profile --profile-result-dir vllm_benchmark_result_llama2-7B_in2049_out1_bs2_tp1_eagerMode_warmup0_withStack_try8_noAsyncOut \
 --disable-async-output-proc --enforce-eager
+```
+
+### Profile-using-nsys
+```
+if profile_dir:
+            torch.cuda.cudart().cudaProfilerStart()
+            nvtx.push_range("dv_llm_generate")
+            llm_generate()
+            nvtx.pop_range()
+            torch.cuda.cudart().cudaProfilerStop()
+```
+```
+nsys profile --stats=true -w true -t cuda,nvtx,osrt,cudnn,cublas -s cpu  --capture-range=cudaProfilerApi  --cudabacktrace=true -x true -o nsys_vllm_llama7B_in128_bs64_out1 \
+ python3 benchmark_latency_nsys.py --model /data/llama-2-7b-chat-hf/ --load-format dummy --dtype float16 --input-len 128 --output-len 1 --batch-size 64 \
+ --num-iters 1 --num-iters-warmup 10 --disable-async-output-proc --enforce-eager --profile
 ```
