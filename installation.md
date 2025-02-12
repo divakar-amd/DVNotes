@@ -31,4 +31,5 @@ echo "deb http://developer.download.nvidia.com/devtools/repos/ubuntu$(source /et
 apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
 apt update
 apt install nsight-systems-cli
+pip install nvtx
 ```
