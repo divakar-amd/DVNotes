@@ -56,10 +56,10 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
 
 1. `max_seq_len_to_capture`: Maximum sequence len covered by CUDA graphs. If greater than this, fall-back to eager-mode.
    - `max_seq_len_to_capture = min(max_seq_len_to_capture, max_model_len)` ([link](https://github.com/vllm-project/vllm/blob/d84cef76eb9e16190cfdd97ae24511c8c819f179/vllm/config.py#L635))
-3. `max_model_len`: Maximum length of a sequence (including **prompt and output**). If None, will be derived from the model. ([link](https://github.com/vllm-project/vllm/blob/d84cef76eb9e16190cfdd97ae24511c8c819f179/vllm/config.py#L2410)).
+3. `max_model_len`: Maximum length of a sequence (including **prompt and output**). If None, will be derived from the model. ([link](https://github.com/vllm-project/vllm/blob/d84cef76eb9e16190cfdd97ae24511c8c819f179/vllm/config.py#L2410)). E.g.: llama2-7B, config.json has `"max_position_embeddings": 4096,`
       ```
       possible_keys = [
-           # OPT       "max_position_embeddings",
+           # OPT       "max_position_embeddings", 
            # GPT-2     "n_positions",
            # MPT       "max_seq_len",
            # ChatGLM2  "seq_length",
