@@ -54,22 +54,24 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
 
 ### Namings
 
-1. `max_seq_len_to_capture`: Maximum sequence len covered by CUDA graphs. If greater than this, fall-back to eager-mode. `max_seq_len_to_capture = min(max_seq_len_to_capture, max_model_len)` ([link](https://github.com/vllm-project/vllm/blob/d84cef76eb9e16190cfdd97ae24511c8c819f179/vllm/config.py#L635))
-3. `max_model_len`: Maximum length of a sequence (including prompt andoutput). If None, will be derived from the model. ([link](https://github.com/vllm-project/vllm/blob/d84cef76eb9e16190cfdd97ae24511c8c819f179/vllm/config.py#L2410)).
-   ```
-   possible_keys = [
-        # OPT       "max_position_embeddings",
-        # GPT-2     "n_positions",
-        # MPT       "max_seq_len",
-        # ChatGLM2  "seq_length",
-        # Command-R "model_max_length",
-        # Whisper   "max_target_positions",
-        # Others
-          "max_sequence_length",
-          "max_seq_length",
-          "seq_len",
-   ```
+1. `max_seq_len_to_capture`: Maximum sequence len covered by CUDA graphs. If greater than this, fall-back to eager-mode.
+   - `max_seq_len_to_capture = min(max_seq_len_to_capture, max_model_len)` ([link](https://github.com/vllm-project/vllm/blob/d84cef76eb9e16190cfdd97ae24511c8c819f179/vllm/config.py#L635))
+3. `max_model_len`: Maximum length of a sequence (including **prompt and output**). If None, will be derived from the model. ([link](https://github.com/vllm-project/vllm/blob/d84cef76eb9e16190cfdd97ae24511c8c819f179/vllm/config.py#L2410)).
+      ```
+      possible_keys = [
+           # OPT       "max_position_embeddings",
+           # GPT-2     "n_positions",
+           # MPT       "max_seq_len",
+           # ChatGLM2  "seq_length",
+           # Command-R "model_max_length",
+           # Whisper   "max_target_positions",
+           # Others
+             "max_sequence_length",
+             "max_seq_length",
+             "seq_len",
+      ```
     
 5. `max_num_batched_tokens`
 6. `max_num_seqs`
-7. 
+7. `max_seq_len`
+8. `max_num_batched_tokens`: This comes handy when using chunked-prefill. Only when chunked-prefill is enabled, this value can be smaller than `max_model_len`. If chunked-prefill is disabled, this value is `max(max_model_len, 2048)` ([link](https://github.com/vllm-project/vllm/blob/d84cef76eb9e16190cfdd97ae24511c8c819f179/vllm/config.py#L1546))
