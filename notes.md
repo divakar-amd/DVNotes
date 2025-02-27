@@ -119,6 +119,7 @@
     print("hello"
           "world")          # helloworld
     ```
+    - Use `stack` when creating a new dimension. Use `concatenate` when merging tensors into same dims
 
 
 
