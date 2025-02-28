@@ -1,4 +1,9 @@
 # Mixture of Experts
+# Contents
+ - [DeepSeek-V3](#DeepSeek-V3) 
+
+
+---------------------------
 
 1. [Vanilla implementation](https://github.com/pcmoritz/vllm-public/blob/fd4ea8ef5c17a8b991107402a414f6ed355d854d/vllm/model_executor/models/mixtral.py#L133)
 2. `max_model_len`: [max_possition_embeddings](https://github.com/vllm-project/vllm/blob/83caf35e082b2657dce5f71ff965a13653a763b0/vllm/config.py#L1686)
@@ -83,3 +88,18 @@
             AMD_Instinct_MI308X_OAM.json
             AMD_Radeon_Graphics.json
    ```
+
+
+## DeepSeek-V3
+- Shapes
+  ```
+    hidden_size: 7168
+    moe_intermediate_size: 2048
+    n_routed_experts: 256
+    num_experts_per_tok: 8
+    fp8 quant block size: [128, 128]
+    experts.gate_proj.weight : ([2048, 7168]) # inv_scale: 2048/128, 7168/128 = (16, 56)
+    experts.up_proj.weight   : ([2048, 7168])
+    experts.down_proj.weight : ([7168, 2048])
+ ```
+
