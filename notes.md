@@ -1,5 +1,10 @@
 # Notes
 
+### Contents
+ - [Download Model without Weights](#14-Download_Model_without_Weights) 
+
+------------------------
+
 1. Install as wheel & carry it around 
     ```
     pip uninstall -y triton
@@ -121,5 +126,34 @@
     ```
     - Use `stack` when creating a new dimension. Use `concatenate` when merging tensors into same dims
 
-
+#### 14. Download_Model_without_Weights
+    ```
+    #/bin/bash
+    
+    DOWNLOAD_PATH="/data/models/DeepSeek-V3"
+    MODEL_REPO="https://huggingface.co/deepseek-ai/DeepSeek-V3"
+    
+    FILES_TO_DOWNLOAD=(
+        "/inference/"
+        "config.json"
+        "configuration_deepseek.py"
+        "model.safetensors.index.json"
+        "modeling_deepseek.py"
+        "tokenizer.json"
+        "tokenizer_config.json"
+    )
+    
+    mkdir -p $DOWNLOAD_PATH
+    cd $DOWNLOAD_PATH
+    
+    git init
+    git remote add origin $MODEL_REPO
+    git config core.sparseCheckout true
+    
+    for file in "${FILES_TO_DOWNLOAD[@]}"; do
+        echo $file >> .git/info/sparse-checkout
+    done
+    git fetch origin main
+    git checkout main
+    ```
 
