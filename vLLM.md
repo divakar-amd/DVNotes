@@ -34,6 +34,7 @@ python3 benchmark_latency.py --model /data/llama-2-7b-chat-hf/ -tp 1 --dtype flo
 ```
 
 ### Profile-using-nsys
+- For tp>1, use `--trace-fork-before-exec=true`
 ```
 if profile_dir:
             torch.cuda.cudart().cudaProfilerStart()
@@ -46,6 +47,12 @@ if profile_dir:
 nsys profile --stats=true -w true -t cuda,nvtx,osrt,cudnn,cublas -s cpu  --capture-range=cudaProfilerApi  --cudabacktrace=true -x true -o nsys_vllm_llama7B_in128_bs64_out1 \
  python3 benchmark_latency_nsys.py --model /data/llama-2-7b-chat-hf/ --load-format dummy --dtype float16 --input-len 128 --output-len 1 --batch-size 64 \
  --num-iters 1 --num-iters-warmup 10 --disable-async-output-proc --enforce-eager --profile
+```
+```
+# Mixtral8x7b (tp=2)
+nsys profile --stats=true -w true -t cuda,nvtx,cudnn,cublas --trace-fork-before-exec=true  --capture-range=cudaProfilerApi  -x true -o nsys_vllm_mixtral8x7B_tp2_in128_bs64_out1  python3 benchmark_latency_nsys.py --model /data/Mixtral-8x7B-v0.1/  --load-format dummy --dtype float16 \
+--input-len 128 --output-len 1 --batch-size 64  --num-iters 1 --num-iters-warmup 10 --disable-async-output-proc --enforce-eager --profile -tp 2
+
 ```
 ```
 # generate csv stats table for the gpu kernels
