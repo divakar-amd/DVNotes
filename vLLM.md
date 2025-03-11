@@ -8,6 +8,7 @@
  - [Profile-using-nsys](#Profile-using-nsys)
  - [Namings](#Namings)
  - [KV-Cache](#KV-Cache)
+ - [Graph-Capture](#Graph-Capture)
 
 
 ### Entrypoint
@@ -84,6 +85,11 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
 6. `max_num_seqs`
 7. `max_seq_len`
 
+### Graph-Capture
+1. Graph capture only happens for Decode phase (i.e. not for Prefill)
+2. This is initiated after the KV-Cache memory profiling, during the engine "warmup"
+3. Before capturing the graph for each Batch Size, some warm-up runs are done. This takes care of stuff like torch.compile or triton.autotune to avoid including extral kernel launches in the graph capture.
+4. For each decoding run, an appropriate graph is picked depending on the batch_size and "replayed".
 
 ### KV-Cache
 
