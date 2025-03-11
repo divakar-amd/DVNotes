@@ -7,6 +7,7 @@
  - [Extra-Decode](#Extra-Decode)
  - [Profile-using-nsys](#Profile-using-nsys)
  - [Namings](#Namings)
+ - [KV-Cache](#KV-Cache)
 
 
 ### Entrypoint
@@ -82,3 +83,23 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
 5. `max_num_batched_tokens`:  This comes handy when using chunked-prefill. Only when chunked-prefill is enabled, this value can be smaller than `max_model_len`. If chunked-prefill is disabled, this value is `max(max_model_len, 2048)` ([link](https://github.com/vllm-project/vllm/blob/d84cef76eb9e16190cfdd97ae24511c8c819f179/vllm/config.py#L1546))
 6. `max_num_seqs`
 7. `max_seq_len`
+
+
+### KV-Cache
+
+- [Entrypoint]([url](https://github.com/vllm-project/vllm/blob/d374f04a337dbd4aab31484b6fa2d4a5f20c2116/vllm/engine/llm_engine.py#L277)) is inside LLMEngine.__init__() 
+- KV-cache is built for each layer of the model.
+   
+1. Determine number of blocks for KV cache. Both GPU cache & swap CPU cache.
+    - There are 2 modes to handle preemption of KV-cache: Recompute (default) and Swap
+    - Recomputation incurs lower overhead than Swap
+    - CPU KV-cache is only use in "swap" mode. ([details]([url](https://github.com/vllm-project/vllm/issues/2853#issuecomment-1943920316)))
+    - Swap mode is only enabled when more than 1 sequences are running per sequence group (e.g. beam search).
+  
+
+    - 1.1 Do a profile run
+       - Run with the max possible input size to get peak memory usage.
+       - KV scales calculation is disabled
+    - 1.2 Total memory for KV Cache = TotalGPUMem * mem_util_cofig(e.g. 90%)  -  non_kv_cache_mem (e.g. weights, NCCL etc.)
+    - 1.3 Calculate cache block size
+3. asdf
