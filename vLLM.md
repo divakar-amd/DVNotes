@@ -96,6 +96,7 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
 
 - [Entrypoint]([url](https://github.com/vllm-project/vllm/blob/d374f04a337dbd4aab31484b6fa2d4a5f20c2116/vllm/engine/llm_engine.py#L277)) is inside LLMEngine.__init__() 
 - KV-cache is built for each layer of the model.
+- `num_attention_heads` vs `num_key_value_heads`: The segregation is for **Grouped Query Attention (GQA)**. If `num_key_value_heads` (say 16) is less than `num_attention_heads` (say 32), this means Queries are grouped into size of (= 32/16 = 2), where each group shares a single key_value head.
    
 1. Determine number of blocks for KV cache. Both GPU cache & swap CPU cache.
     - There are 2 modes to handle preemption of KV-cache: Recompute (default) and Swap
