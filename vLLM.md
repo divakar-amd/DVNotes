@@ -128,3 +128,7 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
 3. Warm-up model
    - Capture the cuda graphs for certain batch sizes. These cuda graphs are used during decoding.
    - Note: Cuda graph capture also takes some gpu memory and since this graph capture happens _after_ the KV-cache size calculations, this means the graph capture size is _Not_ included in the gpu_mem_utilization limits. However, it seems that it doesn't take too much space. e.g.: `llama7b (tp=1) graphs take only 0.28 GB.`
+ 
+- ### KV-Cache during Prefill phase
+    - The prompts are passed to "add_request"
+- ### KV-Cache during Decode phase
