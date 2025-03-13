@@ -114,5 +114,15 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
        - Run with the max possible input size to get peak memory usage.
        - KV scales calculation is disabled
     - 1.2 Total memory for KV Cache = TotalGPUMem * mem_util_cofig(e.g. 90%)  -  non_kv_cache_mem (e.g. weights, NCCL etc.)
-    - 1.3 Calculate cache block size
-3. asdf
+    - 1.3 Calculate cache block size and total number of cache blocks. Each cache_block has a `block_size` which is hard-coded to 16. ([e.g.](https://github.com/vllm-project/vllm/blob/ce20124671cf4580627089e02f391cc95747939f/vllm/platforms/cuda.py#L145))
+  
+2. Initialize cache
+   - Max concurrency (to get a rough estimate of max batch size). [(PR link)](https://github.com/vllm-project/vllm/pull/8831)
+   - Checks for cache size, including: max_model_length should not exceed the max no. of tokens that can be stored in the KV cache. `assert max_model_length <= num_gpu_blocks * block_size(=16)`
+   - So far, only the no. of cache blocks and size have been calculated. The actual GPU memory for cache will be allocated in this step.
+   - kv_cache_shape for each layer: `(2, num_gpu_kvcache_blocks, block_size * num_kv_heads * headsize)`
+   - kv_cache = `[ torch.zeros(kv_cache_shape) for _ in num_layers ]`
+   - For each layer, the attn kv-cache tensors are bind to the respective kv_cache memory
+  
+3. Warm-up model
+   - 
