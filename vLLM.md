@@ -91,6 +91,7 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
 2. This is initiated after the KV-Cache memory profiling, during the engine "warmup"
 3. Before capturing the graph for each Batch Size, some warm-up runs are done. This takes care of stuff like torch.compile or triton.autotune to avoid including extral kernel launches in the graph capture.
 4. For each decoding run, an appropriate graph is picked depending on the batch_size and "replayed".
+5. Memory consumed by all the graph-captures is actually quite small. e.g. `Deepseek-R1 takes only 0.51GB for graphs`
 
 ### KV-Cache
 
