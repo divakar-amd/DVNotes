@@ -114,7 +114,8 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
        - Run with the max possible input size to get peak memory usage.
        - KV scales calculation is disabled
     - 1.2 Total memory for KV Cache = TotalGPUMem * mem_util_cofig(e.g. 90%)  -  non_kv_cache_mem (e.g. weights, NCCL etc.)
-    - 1.3 Calculate cache block size and total number of cache blocks. Each cache_block has a `block_size` which is hard-coded to 16. ([e.g.](https://github.com/vllm-project/vllm/blob/ce20124671cf4580627089e02f391cc95747939f/vllm/platforms/cuda.py#L145))
+    - 1.3 Calculate cache block size and total number of cache blocks. Size of 1 cache_block: `2 * num_heads * head_size * num_layers * block_size`
+    - Each cache_block has a `block_size` which is hard-coded to 16. ([e.g.](https://github.com/vllm-project/vllm/blob/ce20124671cf4580627089e02f391cc95747939f/vllm/platforms/cuda.py#L145))
   
 2. Initialize cache
    - Max concurrency (to get a rough estimate of max batch size). [(PR link)](https://github.com/vllm-project/vllm/pull/8831)
@@ -125,4 +126,4 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
    - For each layer, the attn kv-cache tensors are bind to the respective kv_cache memory
   
 3. Warm-up model
-   - 
+   - Capture the cuda graphs for certain batch sizes. These cuda graphs are used during decoding.
