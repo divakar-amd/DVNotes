@@ -9,6 +9,7 @@
  - [Namings](#Namings)
  - [Graph-Capture](#Graph-Capture)
  - [KV-Cache](#KV-Cache)
+ - [Self-Attention](#Self-Attention)
 
 
 
@@ -130,6 +131,17 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
    - Capture the cuda graphs for certain batch sizes. These cuda graphs are used during decoding.
    - Note: Cuda graph capture also takes some gpu memory and since this graph capture happens _after_ the KV-cache size calculations, this means the graph capture size is _Not_ included in the gpu_mem_utilization limits. However, it seems that it doesn't take too much space. e.g.: `llama7b (tp=1) graphs take only 0.28 GB.`
  
-- ### KV-Cache during Prefill phase
+- ##### KV-Cache during Prefill phase
     - The prompts are passed to "add_request"
-- ### KV-Cache during Decode phase
+- ##### KV-Cache during Decode phase
+
+### Self-Attention
+- Q, K are first massaged with rotary_embedding before the Attn. ([link]([url](https://github.com/vllm-project/vllm/blob/fd8e055ffba508e094cd1793e49bbdc5e53b7266/vllm/model_executor/models/llama.py#L203)))
+- How is the `positions` vector determined here though?
+- Shapes
+  ```
+  query:    [num_tokens, num_heads * head_size]
+  key:      [num_tokens, num_kv_heads * head_size]
+  value:    [num_tokens, num_kv_heads * head_size]
+  kv_cache: [2, num_blocks, block_size * num_kv_heads * head_size]
+  ```
