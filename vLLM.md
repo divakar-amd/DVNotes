@@ -135,6 +135,15 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
     - The prompts are passed to "add_request"
     - During prefill, the keys & values of the prefill tokens are used to 'fill' the kv-cache. However, the flash-attn kernel itself doesn't need to use the kv-cache, it already has what it needs.
 - ##### KV-Cache during Decode phase
+    - __
+- ##### Example:
+  ```
+  kv_cache.shape: torch.Size([2, 20262, 65536])  # [k+v, total_kv_blocks, 16 * num_heads * head_dim ]  # 16=block_size
+  key.shape:      torch.Size([10, 32, 128])      # [prefill_tokens, num_head, head_size]
+  value.shape:
+
+  Total kv_blocks needed to update this case:    key.numel() / kv_block_size = (10*32*128)/(16*32*128)
+  ```
 
 ### Self-Attention
 - Q, K are first massaged with rotary_embedding before the Attn. ([link]([url](https://github.com/vllm-project/vllm/blob/fd8e055ffba508e094cd1793e49bbdc5e53b7266/vllm/model_executor/models/llama.py#L203)))
