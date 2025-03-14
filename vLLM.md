@@ -133,6 +133,7 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
  
 - ##### KV-Cache during Prefill phase
     - The prompts are passed to "add_request"
+    - During prefill, the keys & values of the prefill tokens are used to 'fill' the kv-cache. However, the flash-attn kernel itself doesn't need to use the kv-cache, it already has what it needs.
 - ##### KV-Cache during Decode phase
 
 ### Self-Attention
