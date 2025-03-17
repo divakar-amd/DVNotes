@@ -138,6 +138,7 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
     - __
 - ##### Example:
   ```
+  ---For 1 Layer---
   kv_cache.shape: torch.Size([2, 20262, 65536])  # [k+v, total_kv_blocks, 16 * num_heads * head_dim ]  # 16=block_size
   key.shape:      torch.Size([10, 32, 128])      # [prefill_tokens, num_head, head_size]
   value.shape:
