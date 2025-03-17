@@ -97,7 +97,7 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
 ### KV-Cache
 
 - [Entrypoint]([url](https://github.com/vllm-project/vllm/blob/d374f04a337dbd4aab31484b6fa2d4a5f20c2116/vllm/engine/llm_engine.py#L277)) is inside LLMEngine.__init__() 
-- KV-cache is built for each layer of the model. Each layer has a set of `q_proj, k_proj, v_proj and o_proj weights`. E.g. [Llama7B HF link]([url](https://huggingface.co/meta-llama/Llama-2-7b-hf/blob/01c7f73d771dfac7d292323805ebc428287df4f9/model.safetensors.index.json#L13-L17))
+- KV-cache is built for each layer of the model. Each layer has a set of `q_proj, k_proj, v_proj and o_proj weights`. E.g. [Llama7B HF link](https://huggingface.co/meta-llama/Llama-2-7b-hf/blob/01c7f73d771dfac7d292323805ebc428287df4f9/model.safetensors.index.json#L13-L17)
 - `num_attention_heads` vs `num_key_value_heads`: The segregation is for **Grouped Query Attention (GQA)**. If `num_key_value_heads` (say 16) is less than `num_attention_heads` (say 32), this means Queries are grouped into size of (= 32/16 = 2), where each group shares a single key_value head. e.g:
 
 | Model | n_layers    | n_heads | n_KV_heads | d_head | d_model | Attention |
