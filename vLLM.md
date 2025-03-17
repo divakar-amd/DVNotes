@@ -147,7 +147,7 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
   ```
 
 ### Self-Attention
-- Q, K are first massaged with rotary_embedding before the Attn. ([link]([url](https://github.com/vllm-project/vllm/blob/fd8e055ffba508e094cd1793e49bbdc5e53b7266/vllm/model_executor/models/llama.py#L203)))
+- Q, K are first massaged with rotary_embedding before the Attn. ([link](https://github.com/vllm-project/vllm/blob/fd8e055ffba508e094cd1793e49bbdc5e53b7266/vllm/model_executor/models/llama.py#L203))
 - How is the `positions` vector determined here though?
 - Shapes
   ```
