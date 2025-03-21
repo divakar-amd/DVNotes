@@ -22,7 +22,7 @@
 ### Formatting
 - Use pre-commit for formatting. Run this before commits.
     ```
-    pip install -r requirements-lint.txt && pre-commit install
+    pip install -r requirements/lint.txt && pre-commit install
     ```
 ### Extra-Decode
 - When using `--output-len=1` (in an attempt to capture prefill only), an extra Decode step happens owing to **Asynchronous Output Processing** [(link)]([url](https://blog.vllm.ai/2024/09/05/perf-update.html)). Hence, you would see an extra Graph Launch for the decode in the profiler trace.
