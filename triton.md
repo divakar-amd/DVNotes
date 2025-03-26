@@ -3,6 +3,7 @@
 
 # Contents
  - [Notes](#Notes)
+ - [Examples](#Examples)
  - [Resources](#Resources)
 
 
@@ -11,6 +12,14 @@
 2. In Triton, we decompose the computation only in 1 level: Into blocks. There is no further decomposition into threads.
 3. We don't need to and are not able to manage the shared memory. Triton does that automatically.
 
+
+### Examples
+1. Slicing on tl vectors not allowed:
+   ```
+   my_vec = tl.load(x_ptr + tl.arange(0, 10))
+   ele = my_vec[1]                     # <--- Not allowed
+   ele = tl.load(x_ptr + 1)
+   ```
 
 
 ### Resources
