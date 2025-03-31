@@ -108,7 +108,7 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
 1. Determine number of blocks for KV cache. Both GPU cache & swap CPU cache.
     - There are 2 modes to handle preemption of KV-cache: Recompute (default) and Swap
     - Recomputation incurs lower overhead than Swap
-    - CPU KV-cache is only use in "swap" mode. ([details]([url](https://github.com/vllm-project/vllm/issues/2853#issuecomment-1943920316)))
+    - CPU KV-cache is only use in "swap" mode. ([details]([url](https://github.com/vllm-project/vllm/issues/2853#issuecomment-1943920316))). GPU<->CPU cache swapping has been deprecated in V1 (vllm).
     - Swap mode is only enabled when more than 1 sequences are running per sequence group (e.g. beam search).
   
 
