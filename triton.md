@@ -14,6 +14,7 @@
 2. In Triton, we decompose the computation only in 1 level: Into blocks. There is no further decomposition into threads.
 3. We don't need to and are not able to manage the shared memory. Triton does that automatically.
 4. `os.environ['TRITON_INTERPRET'] = '1'`
+5. Dtype triton and torch: [link](https://github.com/ROCm/triton/blob/9a32ed046673bbe8e67fcce688103dbe43f1f7aa/python/perf-kernels/streamk/utils/utils.py#L11-L31)
 
 ### Autotune
 1. To print auto-tune logs: `os.environ["TRITON_PRINT_AUTOTUNING"] = "1"`
