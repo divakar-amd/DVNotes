@@ -26,6 +26,24 @@
    ele = my_vec[1]                     # <--- Not allowed
    ele = tl.load(x_ptr + 1)
    ```
+2. Using `tl.constexpr` where appropriate:
+   ```
+   my_kernel[grid](..., use_fp8=True)
+
+   @triton.jit
+   def my_kernel(...,
+                 ...,
+                 use_fp8,
+                ):
+       ## some code
+       if use_fp8:
+           ## some other code which won't be executed
+           ## because you're confusing pointer with bool value!!
+
+      ## end code
+   
+   ## Solution: make use_fp8 as tl.constexpr
+   ```
 
 
 ### Resources
