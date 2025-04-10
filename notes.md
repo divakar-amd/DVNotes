@@ -1,7 +1,8 @@
 # Notes
 
 ### Contents
- - [Download Model without Weights](#14-Download_Model_without_Weights) 
+ - [Download Model without Weights](#14-Download_Model_without_Weights)
+ - [Terminal](#terminal)
 
 ------------------------
 
@@ -56,8 +57,16 @@
             ]
         } 
     ```
-3. Use `reset` command if terminal shows weird characters on mouse clicks. They results from mouse tracking left on & session disconnects 
-    3.1 Press `Enter`, `~`, `.` one after the other to disconnect from a frozen session.
+3. ### Terminal  
+    1. Press `Enter`, `~`, `.` one after the other to disconnect from a frozen session.
+    2. Use `reset` command if terminal shows weird characters on mouse clicks. They results from mouse tracking left on & session disconnects
+    3. `wsl.exe --shutdown` to resolve & restart the wsl service
+       ```
+       Fatal Error
+       Error code: Wsl/Service/E_UNEXPECTED
+       press any key to continue
+       ```
+
 4. `"debug.inlineValues": "on"` in the settings.json. To show inline values of variables next to it while debugging.
 5. Docker:
    1.   ```
