@@ -23,7 +23,7 @@
                 "name": "PyDebug: file with args",
                 "type": "debugpy",
                 "request": "launch",
-                "python": "/opt/conda/envs/py_3.9/bin/python",
+                "python": "/usr/bin/python",
                 "program": "${file}", // or "<python_script_path>.py",
                 "console": "integratedTerminal",
                 "env": {"AWESOME_ENV":"0"},
