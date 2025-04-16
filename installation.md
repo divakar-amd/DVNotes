@@ -3,7 +3,8 @@
 
 # Contents
  - [TensorRT-LLM](#TensorRT-LLM) 
- - [Nsight systems](#Nsight%20systems%20(nsys)) 
+ - [Nsight systems](#Nsight%20systems%20(nsys))
+ - [vLLM-cuda](#vLLM-cuda)
 
 
 ## TensorRT-LLM
@@ -32,4 +33,10 @@ apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos
 apt update
 apt install -y nsight-systems-cli
 pip install nvtx
+```
+
+## vLLM-cuda
+If you only need to change Python code, you can build and install vLLM without compilation. ([link]([url](https://docs.vllm.ai/en/stable/getting_started/installation/gpu.html?device=cuda#build-wheel-from-source)))
+```
+VLLM_USE_PRECOMPILED=1 pip install --editable .
 ```
