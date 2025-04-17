@@ -5,6 +5,7 @@
  - [Notes](#Notes)
  - [Autotune](#Autotune)
  - [Examples](#Examples)
+ - [Errors](#Errors)
  - [Resources](#Resources)
  - 
 
@@ -46,6 +47,8 @@
    ## Solution: make use_fp8 as tl.constexpr
    ```
 
+### Errors
+1. **Kernel output is correct in the Interpret mode but not in the regular mode. (where kernel correctness has been verified independently with unittest)**. This probably because the input tensors during integrating the kernel e2e are problematic. One big reason being Tensor not being contiguous! 
 
 ### Resources
 - [A_Practitioners_Guide_to_Triton.ipynb](https://github.com/gpu-mode/lectures/blob/main/lecture_014/A_Practitioners_Guide_to_Triton.ipynb)
