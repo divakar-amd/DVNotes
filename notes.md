@@ -66,6 +66,7 @@
        Error code: Wsl/Service/E_UNEXPECTED
        press any key to continue
        ```
+     4. `cd -` to navigate to previous directory
 
 4. `"debug.inlineValues": "on"` in the settings.json. To show inline values of variables next to it while debugging.
 5. Docker:
