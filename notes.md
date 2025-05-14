@@ -136,7 +136,11 @@
     ```
     - Use `stack` when creating a new dimension. Use `concatenate` when merging tensors into same dims
 
-#### 14. Download_Model_without_Weights
+#### 14. Download_Model_without_Weights     
+  <details>
+  <summary> Old way (won't work if the file store git lfs pointer) </summary>
+  <br>
+  
     ```
     #/bin/bash
     
@@ -166,4 +170,11 @@
     git fetch origin main
     git checkout main
     ```
+  </details>
 
+    ```
+    sudo apt-get install git-lfs
+    GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/CohereLabs/c4ai-command-r7b-12-2024
+    git lfs pull --include "tokenizer.json"   ## regex works too.
+    ```
+    
