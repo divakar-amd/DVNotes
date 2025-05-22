@@ -67,6 +67,13 @@
        press any key to continue
        ```
      4. `cd -` to navigate to previous directory
+     5. Kill all bg processes by using '%': `kill -9 %`
+     6. `locate` cmd to search files
+         ```
+         sudo apt update && sudo apt install mlocate
+         updatedb -U /path/to/directory
+         locate <search_string>
+         ```
 
 4. `"debug.inlineValues": "on"` in the settings.json. To show inline values of variables next to it while debugging.
 5. Docker:
@@ -74,7 +81,7 @@
         docker cp <source_path> <container_id>:<destination_path>
         docker cp container_id:/path/in/container /path/on/host
    2. asdf
-6. Kill all bg processes by using '%': `kill -9 %`
+6. --
 7. Dump ir
    ```
     export MLIR_ENABLE_DUMP=1
