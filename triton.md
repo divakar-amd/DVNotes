@@ -48,7 +48,13 @@
    ```
 
 ### Errors
-1. **Kernel output is correct in the Interpret mode but not in the regular mode. (where kernel correctness has been verified independently with unittest)**. This probably because the input tensors during integrating the kernel e2e are problematic. One big reason being Tensor not being contiguous! 
+1. **Kernel output is correct in the Interpret mode but not in the regular mode. (where kernel correctness has been verified independently with unittest)**. This probably because the input tensors during integrating the kernel e2e are problematic. One big reason being Tensor not being contiguous!
+2. vLLM's kernel args changed in v1 mode which lead to mem-seg fault. The `%` op had negative output because the input had negative value (obvious now, didn't trust then). The input had negative value because of wrong `tl.load` even though a `mask` was used. This was because the mask's condition was affected in v1.
+   ```
+   mask = block_start + offsets < num_tokens                              ## <--- (root cause) had wrong value of num_tokens!
+   slot_values = tl.load(slot_mapping + block_start + offsets, mask=mask) 
+   cache_block_offset = (slot_values % cache_block_size)                  ## <---- this printed negative values!!
+   ```
 
 ### Resources
 - [A_Practitioners_Guide_to_Triton.ipynb](https://github.com/gpu-mode/lectures/blob/main/lecture_014/A_Practitioners_Guide_to_Triton.ipynb)
