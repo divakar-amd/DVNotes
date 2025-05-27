@@ -4,6 +4,7 @@
 **[1. Quantization](#quantization)**<br>
 **[2. Training](#training)**<br>
 **[3. Tokenization](#tokenization)**<br>
+**[4. Temperature, top_p, top_k](#temperature)**<br>
 
 
 
@@ -43,3 +44,10 @@
 - All text characters have associated Unicode values. Size of total Unicode values is about 150k. Not possible to train with this big vocabulary size though.
 - Some common ways to encode the unicode text include UTF-8, UTF-16 etc. Since the unicode values are reduced to byte level, the range of an ecoded character is [0, 256) which solve the OOVocabulary issue. However, this techniques usually results in long encoded sequeces, making it unfeasible to train the model (capturing prev context withing these long seq is also difficult).
 - BPE (byte pair encoding) is a middle ground for the above issues. Frequently occuring bytes are merged together and added to vocab. Training a BPE encoder means merging these frequent occurences together and adding to vocabulary and hence, reducing sequence length.
+
+
+### Temperature, top_p, top_k
+- Temperature: controls randomness. Higher temp means more randomness when selecting output probabilities
+- `top_p`: controls output vocab size. Higher top_p means output token is selected from larger vocab pool. Lower value means less but more probable ones.
+- `top_k`: controls output vocab size. Higher top_k means output token is chosen from a larger vocab pool. Lower value means less vocab but highly probable ones.
+- In both `top_p` & `top_k`, the vocab tokens are sorted based on their probabilities.
