@@ -10,6 +10,7 @@
  - [Graph-Capture](#Graph-Capture)
  - [KV-Cache](#KV-Cache)
  - [Self-Attention](#Self-Attention)
+ - [Warm-ups](#Warm-ups)
 
 
 
@@ -156,3 +157,9 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
   value:    [num_tokens, num_kv_heads * head_size]
   kv_cache: [2, num_blocks, block_size * num_kv_heads * head_size]
   ```
+
+### Warm-ups
+- During engine initialisation in V1, there are 3 model passes:
+  1. To find the max size of kv-cache. This pass passes an empty kv-cache and finds out how much of the remaining memory can be allocated to kv-cache
+  2. For torch compile & graph capture. KV-caches at this have been already initiated. Torch compile are cuda graph captures are done for all the specified sizes. [link](https://github.com/vllm-project/vllm/blob/a1cc9f33a32eef4550daccdc76aefc1baf7bc35d/vllm/v1/worker/gpu_worker.py#L240-L244)
+  3. A yet another run to warm-up the sampler. [link](https://github.com/vllm-project/vllm/blob/a1cc9f33a32eef4550daccdc76aefc1baf7bc35d/vllm/v1/worker/gpu_worker.py#L246-L250) 
