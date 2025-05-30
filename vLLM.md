@@ -159,7 +159,8 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
   ```
 
 ### Warm-ups
-- During engine initialisation in V1, there are 3 model passes:
+- During engine initialisation in V1, there are 4 model passes:
   1. To find the max size of kv-cache. This pass passes an empty kv-cache and finds out how much of the remaining memory can be allocated to kv-cache
-  2. For torch compile & graph capture. KV-caches at this have been already initiated. Torch compile are cuda graph captures are done for all the specified sizes. [link](https://github.com/vllm-project/vllm/blob/a1cc9f33a32eef4550daccdc76aefc1baf7bc35d/vllm/v1/worker/gpu_worker.py#L240-L244)
-  3. A yet another run to warm-up the sampler. [link](https://github.com/vllm-project/vllm/blob/a1cc9f33a32eef4550daccdc76aefc1baf7bc35d/vllm/v1/worker/gpu_worker.py#L246-L250) 
+  2. For torch compile. KV-caches at this point have been already initiated. There will 3 "types" of torch compile graph and a total of n=num_layers torch compile graphs. The first and last layer graphs are different for the middle graphs.
+  3. Cuda graph capture (with a warmup first). Cuda graph captures are done for all the specified sizes. [link](https://github.com/vllm-project/vllm/blob/a1cc9f33a32eef4550daccdc76aefc1baf7bc35d/vllm/v1/worker/gpu_worker.py#L240-L244)
+  4. A yet another run to warm-up the sampler. [link](https://github.com/vllm-project/vllm/blob/a1cc9f33a32eef4550daccdc76aefc1baf7bc35d/vllm/v1/worker/gpu_worker.py#L246-L250) 
