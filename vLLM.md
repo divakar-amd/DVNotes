@@ -168,4 +168,8 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
  
 
 ### Debug
-- VLLM_LOGGING_LEVEL=DEBUG
+- `VLLM_LOGGING_LEVEL=DEBUG`
+- For V1 debugging: `VLLM_ENABLE_V1_MULTIPROCESSING=0` +  `breakpoint()` inside the python file. Launch as a normal python cmd.
+- ```
+  VLLM_ENABLE_V1_MULTIPROCESSING=0  VLLM_LOGGING_LEVEL=DEBUG VLLM_USE_V1=1 python benchmark_latency.py --model /data/Llama-2-7b-hf/ --load-format dummy -tp 1 --input-len 10 --output-len 10 --batch-size 10 --compilation-config '{"use_inductor": "False", "custom_ops": ["all"], "cudagraph_capture_sizes": [128]}'
+  ```
