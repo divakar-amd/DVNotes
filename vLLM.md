@@ -13,6 +13,7 @@
  - [Warm-ups](#Warm-ups)
  - [Debug](#Debug)
  - [Torch-compile](#Torch-compile)
+ - [V1-notes](#V1-notes)
 
 
 
@@ -180,3 +181,7 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
 ### Torch-compile
 - PyTorch -> TorchDynamo -> FxGraph -> TorchInductor (or other deeplearning compiler backend) -> Triton (for GPU) / OpenMP (for CPU)
 - `--compilation-config '{"use_inductor": "False", "custom_ops": ["all"]}'`
+
+
+### V1-notes
+- `VLLM_ATTENTION_BACKEND=TRITON_ATTN_VLLM_V1`
