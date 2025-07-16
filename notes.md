@@ -3,6 +3,7 @@
 ### Contents
  - [Download Model without Weights](#14-Download_Model_without_Weights)
  - [Terminal](#terminal)
+ - [Git](#git)
 
 ------------------------
 
@@ -185,3 +186,10 @@
     git lfs pull --include "tokenizer.json"   ## regex works too.
     ```
     
+#### 15. Git
+- To check what vllm version & branch does the docker container have:
+  ```
+  pip show vllm
+  git branch --contains <git_hash>
+  git show <git_hash>
+  ```
