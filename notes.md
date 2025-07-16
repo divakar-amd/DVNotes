@@ -190,6 +190,11 @@
 - To check what vllm version & branch does the docker container have:
   ```
   pip show vllm
-  git branch --contains <git_hash>
+  git branch --contains <git_hash>  ## Shows all the branches that contain this commit
   git show <git_hash>
   ```
+- One liners:
+  ``` 
+  git branch --contains $(pip show vllm | awk -F': ' '/^Version:/ {print $2}' | grep -oP '(?<=\+g)[0-9a-f]+')
+  git show $(pip show vllm | awk -F': ' '/^Version:/ {print $2}' | grep -oP '(?<=\+g)[0-9a-f]+') | head
+  ```  
