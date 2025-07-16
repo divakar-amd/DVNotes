@@ -3,7 +3,7 @@
 ### Contents
  - [Download Model without Weights](#14-Download_Model_without_Weights)
  - [Terminal](#terminal)
- - [Git](#Git)
+ - [Git](#15-Git)
 
 ------------------------
 
