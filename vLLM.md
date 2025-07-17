@@ -87,7 +87,7 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
              "seq_len",
       ```
     
-5. `max_num_batched_tokens`:  This comes handy when using chunked-prefill. Only when chunked-prefill is enabled, this value can be smaller than `max_model_len`. If chunked-prefill is disabled, this value is `max(max_model_len, 2048)` ([link](https://github.com/vllm-project/vllm/blob/d84cef76eb9e16190cfdd97ae24511c8c819f179/vllm/config.py#L1546))
+5. `max_num_batched_tokens`:  This comes handy when using chunked-prefill. Only when chunked-prefill is enabled, this value can be smaller than `max_model_len`. If chunked-prefill is disabled, this value is `max(max_model_len, 2048)` ([link](https://github.com/vllm-project/vllm/blob/d84cef76eb9e16190cfdd97ae24511c8c819f179/vllm/config.py#L1546)). This is the total number of tokens in the batch i.e. in a 2D setting of `b x l` batch, `num_batched_tokens = b*l`. This variable determines the "max" value for the that. So obviously, in normal setting, the max number of tokens that you can process for a model will the model's `max_model_len`
 6. `max_num_seqs`
 7. `max_seq_len`
 
