@@ -4,7 +4,7 @@
 - [Overview](#Overview)
 - [Dynamo](#Dynamo)
 - [Backend](#Backend)
-- [Custom-Ops / Fake Impl](#Custom-Ops-/-Fake-Impl)
+- [Custom-Ops / Fake Impl](#custom-ops--fake-impl)
 
 
 #### Overview
