@@ -5,7 +5,7 @@
 - [Dynamo](#Dynamo)
 - [Backend](#Backend)
 - [Custom-Ops / Fake Impl](#custom-ops--fake-impl)
-- [Torch.compile in vLLM-V1](#Torch.compile-in-vLLM-V1)
+- [Torch.compile in vLLM-V1](#Torchcompile-in-vLLM-V1)
 
 
 #### Overview
