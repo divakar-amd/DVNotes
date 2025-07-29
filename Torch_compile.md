@@ -5,6 +5,7 @@
 - [Dynamo](#Dynamo)
 - [Backend](#Backend)
 - [Custom-Ops / Fake Impl](#custom-ops--fake-impl)
+- [Torch.compile in vLLM-V1](#Torch.compile-in-vLLM-V1)
 
 
 #### Overview
@@ -26,3 +27,12 @@
 - Now, if are registering a custom-op AND the op returns something AND you are using torch.compile --> You need to write a "Fake" impl of the function. The "fake" impl provides all the necessary info about the input & output tensors for it to work smoothly with Dynamo / FX tracing. Think about shape/dtype/device. If the op returns nothing i.e. **None**, then there's no need for the "fake" impl.
 - If you are not using torch.compile, you can simply register a custom-op without worrying about the "fake" impl (because no FX tracing / Dynamo is involved)
 - [Resource link](https://docs.pytorch.org/tutorials/advanced/python_custom_ops.html) 
+
+#### Torch.compile in vLLM-V1
+- Invoked using `@support_torch_compile` decorator on model's class
+- The first run that vLLM does is estimating the available memory for KV-cache and calling the model's `forward()` method. This when the torch.compile gets kicked-in and that's because model's forward method call the decorator's `__call__` method. Read further for the input shapes...
+- So, torch.compile's Dynamo will do the "tracing" and build an FX graph **before** estimating the kv-cache size. Now, the shape we use for kv-cache estimation is the "biggest" possible input/batch sizes for the given model. e.g. We use `max_num_batched_tokens` which defaults to `16384` for llama-70B.
+  - Torch.compile support dynamic shapes but...
+  - When tracing, torch.compile will pick the very first batch-size to capture the FX graph. The shapes are marked as "symbolic" and hence dynamic.
+  - But, if there's a branchking based on this batch-size, it will actually fetch the value of this symbolic shape and follow a particular branch.
+  - Hence, avoid branching based on batch-size or number of elements. -Or- wrap the condition under a torch custom ops
