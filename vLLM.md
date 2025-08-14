@@ -28,6 +28,11 @@
     ```
     pip install -r requirements/lint.txt && pre-commit install
     ```
+- If for some reason, `yapf` or `isort` become conflicting, you can add a comment to disable one of them. [(e.g. PR code)](https://github.com/vllm-project/vllm/pull/22759/commits/8017d7d72f5a6221cf7fba9282a72bc32703a15c#diff-2bf7a0c5a29ae71824367719b9cfb3a25ae9ea296299a7abde51c234b7171170R245)
+    ```
+    from aiter....tched_tensor_quant import (  # isort: skip   <-------
+        batched_gemm_a8w8_a_per_token_group_prequant_w_per_batched_tensor_quant
+    ```
 ### Extra-Decode
 - When using `--output-len=1` (in an attempt to capture prefill only), an extra Decode step happens owing to **Asynchronous Output Processing** [(link)]([url](https://blog.vllm.ai/2024/09/05/perf-update.html)). Hence, you would see an extra Graph Launch for the decode in the profiler trace.
 - Use `--disable-async-output-proc` when you want to profile only the Prefill part. This would void the extra graph launch for the Decode step.
