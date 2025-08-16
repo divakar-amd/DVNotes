@@ -75,6 +75,12 @@
          updatedb -U /path/to/directory
          locate <search_string>
          ```
+     7. Copying from `vi` editor to system clipboard
+        ```
+        1. Hold Shift and drag to select text
+        2. Press Ctrl + Shift + C to copy
+        3. Paste anywhere with Ctrl + v
+        ```
 
 4. `"debug.inlineValues": "on"` in the settings.json. To show inline values of variables next to it while debugging.
 5. Docker:
