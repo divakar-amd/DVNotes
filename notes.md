@@ -77,7 +77,7 @@
          ```
      7. Copying from `vi` editor to system clipboard
         ```
-        1. Hold Shift and drag to select text
+        1. Hold Shift and drag to select text (if tmux mouse mode is enabled via set -g mouse on)
         2. Press Ctrl + Shift + C to copy
         3. Paste anywhere with Ctrl + v
         ```
