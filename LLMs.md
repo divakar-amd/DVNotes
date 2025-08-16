@@ -4,7 +4,7 @@
 **[1. Quantization](#quantization)**<br>
 **[2. Training](#training)**<br>
 **[3. Tokenization](#tokenization)**<br>
-**[4. Temperature, top_p, top_k](#temperature)**<br>
+**[4. Temperature, top_p, top_k](#temperature-top_p-top_k)**<br>
 **[5. Tensor Parallelism](#TensorParallelism)**<br>
 
 
