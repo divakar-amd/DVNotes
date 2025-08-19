@@ -36,4 +36,4 @@
   - When tracing, torch.compile will pick the very first batch-size to capture the FX graph. The shapes are marked as "symbolic" and hence dynamic.
   - But, if there's a branchking based on this batch-size, it will actually fetch the value of this symbolic shape and follow a particular branch.
   - Hence, avoid branching based on batch-size or number of elements. -Or- wrap the condition under a torch custom ops
-  - There is not torch.compile involved when using **eager-mode** in vLLM. [Link]([url](https://github.com/vllm-project/vllm/blob/80141bbf2f1b8b0beaac097f94923f95773734ef/vllm/config/__init__.py#L3531-L3536))
+  - There is not torch.compile involved when using **eager-mode** in vLLM. [Link](https://github.com/vllm-project/vllm/blob/80141bbf2f1b8b0beaac097f94923f95773734ef/vllm/config/__init__.py#L3531-L3536)
