@@ -105,6 +105,21 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
 6. V1: `--compilation-config '{"cudagraph_capture_sizes": [128]}'`
 7. `--cuda-graph-sizes 32` : This will capture graph sizes from [1, 2, 4] + range(8, x+1, 8)
 8. ~~`--compilation-config '{"full_cuda_graph": true}'`~~ `--compilation-config '{"cudagraph_mode": "FULL"}'`
+9. 3 types of running scenarios:
+   ```
+   (a.) Prefill (pure)
+   (b.) Decode (pure)
+   (c.) Mixed (prefill + decode)
+   ```
+   5 modes of graph capture. `cudagraph_mode.<mode>` [(code link)](https://github.com/vllm-project/vllm/blob/800349c2a50ac1f823d3387cb0f44d0bd6d470d1/vllm/config/compilation.py#L228-L252)
+   ```
+    - NONE.
+    - PIECEWISE. (v1 default)
+    - FULL.               // <--- caution. If not supported (mla), this might turn into FULL_AND_PIECEWISE
+    - FULL_DECODE_ONLY.
+    - FULL_AND_PIECEWISE.
+
+   ```
 
 ### KV-Cache
 
