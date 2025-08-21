@@ -118,8 +118,8 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
     - FULL.               // <--- caution. If not supported (mla), this might turn into FULL_AND_PIECEWISE
     - FULL_DECODE_ONLY.
     - FULL_AND_PIECEWISE.
-
    ```
+   `WARNING 08-21 20:44:38 [gpu_model_runner.py:2899] CUDAGraphMode.FULL is not supported with AiterMLAMetadataBuilder backend (support: AttentionCGSupport.UNIFORM_SINGLE_TOKEN_DECODE); setting cudagraph_mode=FULL_AND_PIECEWISE`
 
 ### KV-Cache
 
