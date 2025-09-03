@@ -120,6 +120,19 @@ nsys stats trace_file.sqlite  --report cuda_gpu_kern_sum --format csv --output o
     - FULL_AND_PIECEWISE.
    ```
    `WARNING 08-21 20:44:38 [gpu_model_runner.py:2899] CUDAGraphMode.FULL is not supported with AiterMLAMetadataBuilder backend (support: AttentionCGSupport.UNIFORM_SINGLE_TOKEN_DECODE); setting cudagraph_mode=FULL_AND_PIECEWISE`
+10. (Sept,2025) Now cudagraph capture is orthogonal to torch.compile. This means we can disable torch.compile but still use cudagraph.
+    ```
+    --compilation-config '{"level": 0, "cudagraph_mode": "FULL"}'
+    ```
+12. **Logging in cudagraph**: The prints or logging only happen during the capture phase. The graph doesn't record the CPU-side operations, hence, no logging during graph replays.
+    ```python
+    with torch.cuda.graph(g):
+        print("This executes only once during capture, not on replay")
+        static_output = static_input * 2
+    g.replay()  # No print statement output here
+
+    ```
+         
 
 ### KV-Cache
 
