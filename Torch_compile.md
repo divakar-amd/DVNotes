@@ -26,7 +26,11 @@
 - Pytorch allows using custom ops via `torch.library.custom_ops()`
 - Now, if are registering a custom-op AND the op returns something AND you are using torch.compile --> You need to write a "Fake" impl of the function. The "fake" impl provides all the necessary info about the input & output tensors for it to work smoothly with Dynamo / FX tracing. Think about shape/dtype/device. If the op returns nothing i.e. **None**, then there's no need for the "fake" impl.
 - If you are not using torch.compile, you can simply register a custom-op without worrying about the "fake" impl (because no FX tracing / Dynamo is involved)
-- [Resource link](https://docs.pytorch.org/tutorials/advanced/python_custom_ops.html) 
+- [Resource link](https://docs.pytorch.org/tutorials/advanced/python_custom_ops.html)
+- Important Update: By default, for PIECEWISE compilation, custom ops are disabled and vllm falls back to Native implementation. To use custom ops, they need to be specified in the compilation config.
+  ```
+  VLLM_ROCM_USE_TRITON_ROPE=1  .... --compilation-config='{"custom_ops":["+rotary_embedding"]}'
+  ``` 
 
 #### Torch.compile in vLLM-V1
 - Invoked using `@support_torch_compile` decorator on model's class
