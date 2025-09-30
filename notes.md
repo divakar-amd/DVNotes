@@ -16,7 +16,46 @@
     pip install dist/*.whl // the *.whl can be saved for re-use
     ```
 2. vs-code minimal debug config
-    ```
+   ```
+   {
+       "version": "0.2.0",
+       "configurations": [
+           {
+               "name": "PyDebug: vLLM bench latency",
+               "type": "debugpy",
+               "request": "launch",
+               "python": "/usr/bin/python",
+               "module": "vllm.entrypoints.cli.main",
+               "console": "integratedTerminal",
+               "env": {
+                   "VLLM_USE_V1":"1", 
+                   "VLLM_ROCM_USE_AITER":"1",
+                   "VLLM_ROCM_USE_TRITON_ROPE":"1",
+                   "VLLM_ENABLE_V1_MULTIPROCESSING":"0",
+                   "VLLM_DISABLE_COMPILE_CACHE":"1"
+               },
+               "justMyCode": true,
+               "args": [
+                   "bench",
+                   "latency",
+                   "--model", 
+                   "/data/models/DeepSeek-R1-dontUse/",
+                   "--block-size", "1",
+                   "--load-format", "dummy",
+                   "--input-len", "2",
+                   "--output-len", "6",
+                   "--batch-size", "10",
+   
+                   // "--enforce-eager",
+                   // "--compilation-config",
+                   // "{\"cudagraph_mode\": \"FULL\", \"level\": 0, \"cudagraph_capture_sizes\": [256,248,240,40,32,24,16,8,4,2,1]}"
+               ]
+           }
+       ]
+   }
+   ```
+
+   ```
     {
         "version": "0.2.0",
         "configurations": [
@@ -58,7 +97,7 @@
             ]
         } 
     ```
-3. ### Terminal  
+4. ### Terminal  
     1. Press `Enter`, `~`, `.` one after the other to disconnect from a frozen session.
     2. Use `reset` command if terminal shows weird characters on mouse clicks. They results from mouse tracking left on & session disconnects
     3. `wsl.exe --shutdown` to resolve & restart the wsl service
@@ -82,14 +121,14 @@
         3. Paste anywhere with Ctrl + v
         ```
 
-4. `"debug.inlineValues": "on"` in the settings.json. To show inline values of variables next to it while debugging.
-5. Docker:
+5. `"debug.inlineValues": "on"` in the settings.json. To show inline values of variables next to it while debugging.
+6. Docker:
    1.   ```
         docker cp <source_path> <container_id>:<destination_path>
         docker cp container_id:/path/in/container /path/on/host
    2. asdf
-6. --
-7. Dump ir
+7. --
+8. Dump ir
    ```
     export MLIR_ENABLE_DUMP=1
     export AMDGCN_ENABLE_DUMP=1
@@ -97,14 +136,14 @@
     Remember to pipe the output to a file
     <cmd> > ir.txt 2>&1
     ```
-8. To prevent GPU cores from creating, run your dockers with `--ulimit core=0:0`
-9. To avoid wide docker ps output:
+9. To prevent GPU cores from creating, run your dockers with `--ulimit core=0:0`
+10. To avoid wide docker ps output:
    ```
    docker ps --format="table {{.ID}}\t{{.Image}}\t{{.RunningFor}}\t{{.Status}}\t{{.Names}}"
 
    {{.Ports}} -> if you want it
    ```
-10. Nsight System profiling <br>
+11. Nsight System profiling <br>
     [Reference Link](https://dev-discuss.pytorch.org/t/using-nsight-systems-to-profile-gpu-workload/59)
     ```
     nsys profile --stats=true -w true -t cuda,nvtx,osrt,cudnn,cublas -s cpu  --capture-range=cudaProfilerApi --stop-on-range-end=true --cudabacktrace=true -x true -o my_profile python main.py
@@ -126,7 +165,7 @@
     
     ```
     A better way is to use cpp benchmarking instead of python [(link)](https://github.com/NVIDIA/TensorRT-LLM/blob/main/benchmarks/cpp/README.md)
-11. TRT-LLM
+12. TRT-LLM
     - Convert mixtral's checkpoint (from examples/mixtral)
     ```
     TP=8
