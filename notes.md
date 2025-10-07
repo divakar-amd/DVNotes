@@ -32,7 +32,8 @@
                    "VLLM_ROCM_USE_AITER":"1",
                    "VLLM_ROCM_USE_TRITON_ROPE":"1",
                    "VLLM_ENABLE_V1_MULTIPROCESSING":"0",
-                   "VLLM_DISABLE_COMPILE_CACHE":"1"
+                   "VLLM_DISABLE_COMPILE_CACHE":"1",
+                   "VLLM_LOGGING_LEVEL":"DEBUG",
                },
                "justMyCode": true,
                "args": [
