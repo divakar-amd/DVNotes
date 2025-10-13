@@ -4,6 +4,7 @@
  - [Download Model without Weights](#14-Download_Model_without_Weights)
  - [Terminal](#terminal)
  - [Git](#15-Git)
+ - [Server Client check](#16-Server-Client-check)
 
 ------------------------
 
@@ -244,3 +245,12 @@
   git branch --contains $(pip show vllm | awk -F': ' '/^Version:/ {print $2}' | grep -oP '(?<=\+g)[0-9a-f]+')
   git show $(pip show vllm | awk -F': ' '/^Version:/ {print $2}' | grep -oP '(?<=\+g)[0-9a-f]+') | head
   ```  
+
+#### 16. Server-Client-check
+```
+curl -s http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{
+  "model": "/data/models/Llama-3.1-8B-Instruct",
+  "prompt": "The capital of France is ",
+  "max_tokens": 10
+}'
+```
